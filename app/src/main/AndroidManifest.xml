@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:windowSoftInputMode="adjustResize"
+        android:theme="@style/Theme.QingJiZhang">
+        <!-- 小组件版本号：application 下、整数只增（1584 §10）。本次实现方式整体更换（Glance→XML），属功能变动 → 1→2 -->
+        <meta-data android:name="miuiWidgetVersion" android:value="2" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          V1.4 桌面小组件（XML + RemoteViews，仅 2×2）
+          - android:process：1584 §1 要求小部件跑在独立进程（内存 ≤35MB，不得拉起其他进程）
+          - android:exported=true：MIUI 桌面要发 miui.appwidget.action.APPWIDGET_UPDATE 曝光刷新广播
+          - miuiWidget / miuiWidgetRefresh / miuiWidgetRefreshMinInterval：1584 §2 / §4
+          - 类名保持不变（1584 §12.6：改名会让已添加的小组件在升级后消失）
+        -->
+        <receiver
+            android:name=".ui.widget.TodayExpenseWidget2x2Receiver"
+            android:exported="true"
+            android:label="@string/widget_2x2_label"
+            android:process=":widgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="miui.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/today_expense_widget_2x2_info" />
+            <!--
+              注意：不能声明 miuiWidget=true。
+              实测（HyperOS 3.0）：一旦声明，MIUI 会把它归入「小米小部件」通道，
+              而该通道只展示已通过小米开放平台审核的条目 → 「安卓小部件」列表里也看不到本 provider，
+              用户根本无法添加。去掉后两个列表都能正常出现。
+              代价：失去 MIUI 曝光刷新广播（miui.appwidget.action.APPWIDGET_UPDATE 不再下发），
+              改由「写入口主动刷新 + 零点 Worker + updatePeriodMillis 30min 兜底」保证时效。
+            -->
+            <!--
+              miuiWidget 必须是 false（不能是 true）：
+              实测 HyperOS 3.0 —— 声明 true 后 MIUI 把本 provider 归入「小米小部件」通道，
+              该通道只展示通过小米开放平台审核的条目，「安卓小部件」列表滚到底也找不到，用户无法添加。
+              改 false（或整条移除）后立刻可见、可添加。
+              代价：MIUI 曝光刷新广播不再下发；时效由「写入口主动刷新 + 零点 Worker + 30min 兜底」保证。
+              注意：保留 miuiWidgetRefresh / MinInterval 两条 meta-data 无害（无标识时不生效）。
+            -->
+            <meta-data android:name="miuiWidget" android:value="false" />
+            <meta-data android:name="miuiWidgetRefresh" android:value="exposure" />
+            <meta-data android:name="miuiWidgetRefreshMinInterval" android:value="10000" />
+        </receiver>
+
+        <!-- CSV 导出分享（cache 目录 → content Uri，无需任何存储权限） -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

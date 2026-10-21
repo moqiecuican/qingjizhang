@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自适应图标背景层：方案 B「鲜活嫩芽绿」#7CB342（2026-10-20 设计定稿，替代 #A8C686） -->
+    <color name="ic_launcher_background">#7CB342</color>
+
+    <!-- V1.4 桌面小组件（品牌绿，用户定稿）。深色对应 values-night/colors.xml（1584 §12.5） -->
+    <color name="widget_bg_color">#EEF2E2</color>
+    <color name="widget_text_primary">#1B2110</color>
+    <color name="widget_text_secondary">#4A5236</color>
+    <color name="widget_text_tertiary">#664A5236</color>
+    <color name="widget_btn_color">#97C459</color>
+    <color name="widget_btn_text">#173404</color>
+    <color name="widget_placeholder">#1A1B2110</color>
+</resources>
