@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">轻记账</string>
+    <!-- V1.4 桌面小组件（XML + RemoteViews） -->
+    <!-- 名称：小部件中心会展示为「应用名称·小部件名称」，故此处只写功能名（1584 §12.5） -->
+    <string name="widget_2x2_label">今日支出</string>
+    <string name="widget_2x2_desc">今日支出总额、笔数与最近一笔时间，一键记一笔</string>
+    <string name="widget_quick_add">＋ 记一笔</string>
+</resources>

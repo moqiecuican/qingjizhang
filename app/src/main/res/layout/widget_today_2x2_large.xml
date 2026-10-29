@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  2×2 主档 · 大卡（宽度 ≥136dp，常见于 4×6 桌面 150dp / 无字 154dp / 负一屏 160dp）
+
+  规格依据（全部走小米规范，不按参考图量像素）：
+  - 内边距 15dp：1664 §2.2 手机安全距离 42px ≈ 15dp
+  - 标签 14dp / 辅助 11dp：1664 §2.3 字阶 Display2 / Display4
+  - 金额 25dp：宽度约束推导（8 字符 × 0.58em ≤ 150-30dp），非参考图像素
+  - 按钮 40dp + 圆角 20dp：Material 触控下限（规范未规定按钮）
+  - 根节点 @android:id/background + 背景色：1584 §7.1
+  - 根 match_parent、内容用 weight 弹性：1584 §8
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:id="@+id/widget_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widget_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_secondary"
+            android:textSize="13dp"
+            tools:text="今日支出 · 10月20日" />
+
+        <TextView
+            android:id="@+id/widget_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_primary"
+            android:textSize="27dp"
+            tools:text="¥126.50" />
+
+        <TextView
+            android:id="@+id/widget_aux"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_tertiary"
+            android:textSize="11dp"
+            tools:text="共 4 笔 · 最近 21:35" />
+
+        <!-- 弹性占位：文字块贴顶、按钮贴底（1584 §8：用 weight 而不是绝对位置） -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/widget_button"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/widget_btn_bg"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/widget_quick_add"
+            android:textColor="@color/widget_btn_text"
+            android:textSize="14dp" />
+    </LinearLayout>
+</FrameLayout>

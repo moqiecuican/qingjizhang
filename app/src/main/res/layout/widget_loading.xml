@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  加载态（1585「加载态建议」）：initialLayout 指向本布局，收到 update 后换成正式布局。
+  1664 §3 无内容场景：内容用半透明占位色块（图片占位/文字占位）。
+  根节点必须带 @android:id/background 且有背景色（1584 §7.1）。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_bg"
+    android:padding="15dp"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="96dp"
+        android:layout_height="10dp"
+        android:background="@color/widget_placeholder" />
+
+    <LinearLayout
+        android:layout_width="132dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/widget_placeholder" />
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/widget_placeholder" />
+</LinearLayout>
