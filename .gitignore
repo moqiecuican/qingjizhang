@@ -1,0 +1,21 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# 设计参考图：本地素材，不进仓库（公开仓库也不需要）
+/小组件参考图/
+
+# 开发日志：只保留在私有仓库，不随公开快照发布
+/DEVLOG.md

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  2×2 主档 · 大屏档（卡片宽 ≥250dp，实测平板 292×292dp）
+
+  为什么需要这一套：dp 是物理尺寸单位，平板 2×2 的格子（292dp）比手机（162dp）大 1.8 倍，
+  同样的 27dp 字号占比从 16.7% 掉到 9.2%；而 MIUI 的 autoScale 只在小格子装不下时缩小，
+  格子变大时不会放大内容（实测平板 logcat 只有 `autoScale true`，没有任何 scaleDensity 记录）。
+  → 尺寸必须自己按卡片大小分档，不能指望系统。
+
+  与大卡（large）的差异：
+  - 内边距 24dp / 标签 20dp / 金额 44dp（规范 Display1 上限）/ 辅助 16dp / 按钮 64dp
+  - 文字块【垂直居中】：手机版是贴顶+按钮贴底，大卡上那样会留下大片空白
+  - 金额宽度校验：292 - 48 = 244dp 可用，8 字符 × 0.58 × 44 = 204dp ✓
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:id="@+id/widget_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 文字块：吃掉按钮以上的全部空间，并在这块空间里垂直居中 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/widget_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_text_secondary"
+                android:textSize="20dp"
+                tools:text="今日支出 · 10月20日" />
+
+            <TextView
+                android:id="@+id/widget_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_text_primary"
+                android:textSize="44dp"
+                tools:text="¥126.50" />
+
+            <TextView
+                android:id="@+id/widget_aux"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/widget_text_tertiary"
+                android:textSize="16dp"
+                tools:text="共 4 笔 · 最近 21:35" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/widget_button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@drawable/widget_btn_bg"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/widget_quick_add"
+            android:textColor="@color/widget_btn_text"
+            android:textSize="20dp" />
+    </LinearLayout>
+</FrameLayout>

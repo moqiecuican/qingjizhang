@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 深色启动窗口（审查 D5）：原先只有 values/themes.xml 的 Light 主题，
+     暗色模式下启动窗口固定浅色，Compose 首帧接管前会「白闪一下」。
+     这里只影响 windowBackground，界面本身仍由 Compose 的 Surface 决定。 -->
+<resources>
+    <style name="Theme.QingJiZhang" parent="android:Theme.Material.NoActionBar" />
+</resources>

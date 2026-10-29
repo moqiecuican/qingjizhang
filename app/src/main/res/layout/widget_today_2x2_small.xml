@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  2×2 主档 · 小卡（宽度 <136dp，5×8 桌面 121dp）
+
+  与大卡的差异（1585 两套布局方案）：
+  - 内边距 12dp、标签 12dp、金额 20dp（宽度约束 121-24dp 的 8 字符上限）、按钮 34dp
+  - 辅助行隐藏（用户已确认：该尺寸下只留「标签 + 金额 + 按钮」）
+  隐藏而非删除：remoteviews 按 id 取控件，id 必须存在
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:id="@+id/widget_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widget_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_secondary"
+            android:textSize="12dp"
+            tools:text="今日支出 · 10月19日" />
+
+        <TextView
+            android:id="@+id/widget_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_primary"
+            android:textSize="20dp"
+            tools:text="¥126.50" />
+
+        <TextView
+            android:id="@+id/widget_aux"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_tertiary"
+            android:textSize="11dp"
+            android:visibility="gone"
+            tools:text="共 4 笔 · 最近 21:35" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/widget_button"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="@drawable/widget_btn_bg"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/widget_quick_add"
+            android:textColor="@color/widget_btn_text"
+            android:textSize="13dp" />
+    </LinearLayout>
+</FrameLayout>

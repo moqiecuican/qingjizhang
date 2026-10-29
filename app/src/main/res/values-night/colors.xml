@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 深色模式（1584 §12.5：只能 XML 静态适配，不支持 RemoteViews 里代码动态设置） -->
+<resources>
+    <color name="widget_bg_color">#2E3324</color>
+    <color name="widget_text_primary">#EDF1DC</color>
+    <color name="widget_text_secondary">#B9C39B</color>
+    <color name="widget_text_tertiary">#66B9C39B</color>
+    <color name="widget_btn_color">#639922</color>
+    <color name="widget_btn_text">#EDF1DC</color>
+    <color name="widget_placeholder">#33EDF1DC</color>
+</resources>

@@ -1,0 +1,43 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!--
+      D2 定稿 + 重心回正（2026-10-20）
+      原始 D2 的 bbox 中心在 (57.3, 55.0)，相对画布中心 (54,54) 偏右 3.3dp；
+      几何上 translateX=-3 能居中（中心 54.3），但左半是描边面、右半是实心铅笔块 + ¥ 偏左，
+      视觉重量压在左边，纯几何居中反而显得「往左偏」（用户实测反馈）。
+      translateX=-2 时左右留白已精确相等（PIL 实测 24/24），但左侧 L 形描边「面」重、
+      右侧铅笔「块」轻，等留白仍显左重；再右 1dp（-1）让几何略偏右去平衡视觉重量。
+      PIL 复核：左/右留白 = 26/22 px；外框最远点（含 1.95dp 描边）r=31.3、铅笔 r=29.3，
+      安全圆 33 余量 1.7dp（圆形/水滴 mask 未验，余量较薄需目视确认）。
+    -->
+    <group android:translateX="-1">
+
+        <!-- D2 定稿：2:3 黄金宽高比敞口账单外框（宽 30.5dp × 高 45dp，线宽 3.9dp） -->
+        <path
+            android:pathData="M56.0,77.5 L41.5,77.5 C37.4,77.5 34.0,74.1 34.0,70.0 L34.0,40.0 C34.0,35.9 37.4,32.5 41.5,32.5 L64.5,32.5"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="3.9"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+
+        <!-- 框内：横向舒展的 ¥ 符号 + 底部流水线（线宽 3.5dp） -->
+        <path
+            android:pathData="M42.5,42.0 L50.0,50.5 L57.5,42.0 M50.0,50.5 L50.0,62.2 M43.8,52.8 L56.2,52.8 M43.8,58.2 L56.2,58.2 M42.5,68.8 L52.0,68.8"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+
+        <!-- 右侧：6.2dp 修长微圆角平顶铅笔（斜向提笔留白） -->
+        <path
+            android:pathData="M63.7,57.7 L75.0,38.8 C75.6,37.9 76.8,37.6 77.8,38.1 L79.6,39.3 C80.6,39.8 80.9,41.1 80.3,42.0 L69.0,60.9 Z"
+            android:fillColor="#FFFFFF" />
+        <path
+            android:pathData="M62.5,59.7 L67.8,62.9 L61.4,67.5 Z"
+            android:fillColor="#FFFFFF" />
+    </group>
+</vector>
